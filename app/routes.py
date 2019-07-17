@@ -17,7 +17,6 @@ def about():
 
 @app.route('/nasarequest', methods=['GET', 'POST'])
 def nasarequest():
-	apikey = 'DEMO_KEY'
 	form = ApiKeyInputForm()
 	if form.validate_on_submit():
 		apikey = form.apikey.data
