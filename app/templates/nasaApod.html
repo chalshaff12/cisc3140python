@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 >{{ apidata.title }}</h1>
+<h2>Last Updated:{{ apidata.date}}</h2>
+<p>{{ apidata.explanation }}</p>
+
+<iframe width="720" height="515"
+src="{{ apidata.url }}">
+</iframe>
+
+{% endblock %}
