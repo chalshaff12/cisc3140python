@@ -1,12 +1,16 @@
+<!--use base template-->
 {% extends "base.html" %}
 
 {% block content %}
+<!--form for api key-->
 <form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>
+			<!--for input display-->
 			{{ form.apikey.label }}<br>
 			{{ form.apikey(size=128) }}<br>
 		</p>
+		<!--for submit button display-->
 		<p>{{ form.submit() }}</p>
 	</form>
 

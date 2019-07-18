@@ -19,19 +19,21 @@ def about():
 #request page
 @app.route('/nasarequest', methods=['GET', 'POST'])
 def nasarequest():
+	#form to input api key
 	form = ApiKeyInputForm()
 	if form.validate_on_submit():
 		apikey = form.apikey.data #set apikey to input
-		res = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={ apikey }') 
-		status = res.status_code
-		if status == 403:
+		res = requests.get(f'https://api.nasa.gov/planetary/apod?api_key={ apikey }') #call api
+		status = res.status_code #get api page status to validate apikey
+		if status == 403: #invalid api key
 			flash('Please enter a valid API Key or use the DEMO_KEY')
 			return redirect(url_for('nasarequest'))
-		apijson = res.json()
-		return render_template('nasaApod.html', apidata=apijson)
+		apijson = res.json() #store json from api
+		return render_template('nasaApod.html', apidata=apijson) #redirect to api display page
 	return render_template('nasarequest.html', form=form)
 #(my nasa apikey - lou5l9csSbcNzkWzpwMBdGCuDtWEmXPiCk5ZhReO)
 
+#api display page
 @app.route('/nasaApod')
 def nasaApod():
 	return render_template('nasaApod.html', apidata=apijson)

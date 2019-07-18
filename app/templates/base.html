@@ -1,5 +1,7 @@
+<!--base template-->
 <html>
 	<head>
+		<!--set title and default title-->
 		{% if title %}
 		<title>{{ title }} - CISC3140</title>
 		{% else %}
@@ -7,12 +9,14 @@
 		{% endif %}
 	</head>
 	<body>
+		<!--navigation bar-->
 		<div>
 			<a href="{{ url_for('index') }}">Home</a>
 		 	<a href="{{ url_for('about') }}">About</a>
 		 	<a href="{{ url_for('nasarequest') }}">NasaApod</a>
 		 </div>
 		<hr>
+		<!--display flash messages if exists-->
 		{% with messages = get_flashed_messages() %}
 		{% if messages %}
 		<ul>
@@ -22,6 +26,7 @@
 		</ul>
 		{% endif %}
 		{% endwith %}
+		<!--display page html-->
 		{% block content %}{% endblock %}
 	</body>
 </html>

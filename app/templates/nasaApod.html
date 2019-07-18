@@ -1,16 +1,21 @@
+<!--use base template-->
 {% extends "base.html" %}
 
 {% block content %}
 
+<!--display api info-->
 <h1 >{{ apidata.title }}</h1>
 <h2>Last Updated:{{ apidata.date}}</h2>
 <p>{{ apidata.explanation }}</p>
 <br>
+	<!--check if video or image source-->
 	{% if apidata.media_type == 'video' %}
-	<iframe width="720" height="515"
+	<!--embedded video with iframe-->
+	<iframe width="720" height="515" 
 	src="{{ apidata.url }}">
 	</iframe>
 	{% else %}
+	<!--display image-->
 	<img src="{{ apidata.url }}" />
 	{% endif %}
 
