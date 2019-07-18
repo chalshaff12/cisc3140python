@@ -6,12 +6,15 @@
 <form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>
-			<!--for input display-->
+			<!--form input display-->
 			{{ form.apikey.label }}<br>
-			{{ form.apikey(size=128) }}<br>
+			{{ form.apikey(size=64) }}<br>
 		</p>
-		<!--for submit button display-->
-		<p>{{ form.submit() }}</p>
+		<!--form submit button display-->
+		<p>Check out Nasa's Picture of the day! {{ form.apod() }}</p>
+		<p>Have a look at Mars Rover Pictures from a random day! {{ form.rover() }}</p>
+		
+		
 	</form>
 
 {% endblock %}
