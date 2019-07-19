@@ -1,0 +1,19 @@
+<!--use base template-->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>EPIC Earth Photos from Last Year, Today</h1>
+<!--check for data on given sol-->
+{% if apidata|length == 0: %}
+	<p>Sorry, no pictures for this day. Try again tomorrow!</p>
+{% else: %}
+	<!--display main api data-->
+	{% for photo in apidata %}
+	<p>Photo id: {{ photo.image}}<br>
+	{{ photo.caption }} </p>
+	<img src="https://epic.gsfc.nasa.gov/archive/natural/{{date}}/png/{{photo.image}}.png" height="550" width="550" />
+	<br>
+	{% endfor %}
+{% endif %}
+<br>
+{% endblock %}

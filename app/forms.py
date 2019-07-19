@@ -6,5 +6,5 @@ from wtforms.validators import DataRequired, ValidationError, EqualTo
 class ApiKeyInputForm(FlaskForm):
 	apikey = StringField('Apikey', validators=[DataRequired()])
 	apod = SubmitField('Picture of the Day')
-	#sol = IntegerField('Mars SOL')
 	rover = SubmitField('Mars Rover Photos')
+	epic = SubmitField('EPIC Photos')

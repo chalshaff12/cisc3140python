@@ -5,6 +5,7 @@ from app.forms import ApiKeyInputForm
 from werkzeug.urls import url_parse
 import requests 
 import random
+import datetime
 
 #home page
 @app.route('/')
@@ -24,6 +25,10 @@ def nasarequest():
 	form = ApiKeyInputForm()
 	if form.validate_on_submit():
 		apikey = form.apikey.data #set apikey to input
+		now = datetime.datetime.today() #get today's date
+		m = now.strftime('%m') #format date to 2-digit month and day
+		d = now.strftime('%d')
+		date = f'{now.year-1}-{m}-{d}' #set date as today, last year	
 		#check which API to request
 		if form.apod.data:
 			url = 'https://api.nasa.gov/planetary/apod?' #set API url
@@ -32,6 +37,10 @@ def nasarequest():
 			sol = random.randint(1,2500) #random number for sol
 			url = f'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol={sol}&page=2&' #set API url with random sol input
 			page = 'nasaRover.html' #set redirect template
+		elif form.epic.data:
+			url = f'https://api.nasa.gov/EPIC/api/natural/date/{date}?' #set API url
+			page = 'nasaEpic.html' #set redirect template
+			date = f'{now.year-1}/{m}/{d}' #change date format image pull in html
 		res = requests.get(f'{url}api_key={apikey}') #call api
 		status = res.status_code #get api page status to validate apikey
 		if status == 403: #invalid api key error
@@ -41,7 +50,7 @@ def nasarequest():
 			flash('Too many requests, please enter a different API Key or try again later')
 			return redirect(url_for('nasarequest'))
 		apijson = res.json() #store json from api
-		return render_template(page, apidata=apijson) #redirect to api display page
+		return render_template(page, apidata=apijson, date=date) #redirect to api display page
 	return render_template('nasarequest.html', form=form)
 #(my nasa apikey - lou5l9csSbcNzkWzpwMBdGCuDtWEmXPiCk5ZhReO)
 
