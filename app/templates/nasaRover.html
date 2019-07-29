@@ -1,0 +1,20 @@
+<!--use base template-->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Mars Rover Photos</h1>
+<!--check for data on given sol-->
+{% if apidata.photos|length == 0: %}
+	<p>Sorry, no pictures for this day. Go back and try again!</p>
+{% else: %}
+	<!--display main api data-->
+	<h2>SOL {{ apidata.photos[1].sol }}, Earth date {{ apidata.photos[1].earth_date }}. Displaying {{ apidata.photos|length }} photos:</h2>
+	<!--loop through json list and display images and data-->
+	{% for photo in apidata.photos %}
+	<p>{{ photo.rover.name }} Rover, {{ photo.camera.full_name }}</p>
+	<img src="{{ photo.img_src }}"/>
+	<br>
+	{% endfor %}
+{% endif %}
+<br>
+{% endblock %}
